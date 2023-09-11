@@ -1,0 +1,12 @@
+<div class="center">
+  <form class="register__form" #f="ngForm" (ngSubmit)="onSubmit()">
+    <h2>Space traders</h2>
+    <fieldset>
+      <div class="form__group">
+        <label class="username__label" for="username">Enter a username</label>
+        <input class="input__field" name="username" type="text" id="username" [(ngModel)]="username">
+      </div>
+      <button class="submit__btn" type="submit">Register</button>
+    </fieldset>
+  </form>
+</div>

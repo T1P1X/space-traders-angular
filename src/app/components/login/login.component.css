@@ -1,0 +1,30 @@
+.register__form{
+  display: inline-block;
+  width: 30%;
+  padding: 10px 0;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.register__form > fieldset {
+  border: none;
+}
+.form__group{
+  display: flex;
+  flex-direction: column;
+}
+.submit__btn{
+  padding: 3px 10px;
+  margin: 20px 0;
+}
+.input__field{
+  width: 40%;
+  padding: 5px;
+  margin: 5px auto;
+}
+.username__label {
+  font-size: larger;
+}
+.center {
+  text-align: center;
+}
