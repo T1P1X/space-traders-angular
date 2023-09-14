@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService {
+export class AccountService{
   bearerToken: string = "";
   constructor(private client: HttpClient){
     let _bearerToken = localStorage.getItem("bearerToken");
@@ -13,26 +13,27 @@ export class AccountService {
       this.bearerToken = _bearerToken;
     }
   }
-  //TODO: Change post request to use httpClient
-  register(username: string): void{
+  register(username: string): void {
     const options = {
-      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        symbol: username,
-        faction: "COSMIC",
-      }),
     };
 
-    fetch('https://api.spacetraders.io/v2/register', options)
-      .then(response => response.json())
-      .then(response => this.bearerToken = response.data.token)
-      .catch(err => console.error(err));
+    let registrationObservable = this.client.post<RegistrationResponse>('https://api.spacetraders.io/v2/register', JSON.stringify({
+      symbol: username,
+      faction: "COSMIC",
+    }),options);
 
-    localStorage.setItem('bearerToken',this.bearerToken);
-
-    console.log("Trader created with token: " + this.bearerToken);
+    registrationObservable.subscribe((data: RegistrationResponse) => localStorage.setItem("bearerToken",data.data.token));
+  }
+}
+interface RegistrationResponse {
+  data: {
+    agent: {},
+    contract: {},
+    faction: {},
+    ship: {},
+    token: string
   }
 }
